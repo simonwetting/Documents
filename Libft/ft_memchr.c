@@ -3,14 +3,14 @@
 /*                                                        ::::::::            */
 /*   ft_memchr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: swetting <marvin@codam.nl>                   +#+                     */
+/*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/14 11:37:40 by swetting      #+#    #+#                 */
-/*   Updated: 2019/01/14 12:25:03 by swetting      ########   odam.nl         */
+/*   Created: 2019/01/14 11:37:40 by swetting       #+#    #+#                */
+/*   Updated: 2019/02/15 15:54:12 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {

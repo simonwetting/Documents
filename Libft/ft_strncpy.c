@@ -3,14 +3,14 @@
 /*                                                        ::::::::            */
 /*   ft_strncpy.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: swetting <marvin@codam.nl>                   +#+                     */
+/*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/15 15:02:45 by swetting      #+#    #+#                 */
-/*   Updated: 2019/01/16 13:28:06 by swetting      ########   odam.nl         */
+/*   Created: 2019/01/15 15:02:45 by swetting       #+#    #+#                */
+/*   Updated: 2019/02/15 15:54:15 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
 
 char	*ft_strncpy(char *dst, const char *src, size_t len)
 {

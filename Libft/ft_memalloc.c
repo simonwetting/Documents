@@ -6,12 +6,11 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/18 10:55:36 by swetting       #+#    #+#                */
-/*   Updated: 2019/02/06 15:17:31 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/15 15:56:34 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdlib.h>
+#include "libft.h"
 
 void	*ft_memalloc(size_t size)
 {

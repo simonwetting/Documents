@@ -6,7 +6,7 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 16:50:52 by swetting       #+#    #+#                */
-/*   Updated: 2019/01/31 11:01:30 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/15 13:44:08 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int		ft_atoi(char const *str)
 	int		result;
 	int		negative;
 
+	while (ft_iswhitespace(*str))
+		str++;
 	negative = 0;
 	result = 0;
 	if (*str == '+' && *(str + 1) == '-')

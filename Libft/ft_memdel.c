@@ -6,11 +6,11 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/18 11:26:48 by swetting       #+#    #+#                */
-/*   Updated: 2019/01/18 14:20:32 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/15 15:52:47 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 void	ft_memdel(void **ap)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   memset.c                                           :+:    :+:            */
+/*   ft_memset.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: swetting <marvin@codam.nl>                   +#+                     */
+/*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/13 13:54:07 by swetting      #+#    #+#                 */
-/*   Updated: 2019/01/13 17:18:57 by swetting      ########   odam.nl         */
+/*   Created: 2019/01/13 13:54:07 by swetting       #+#    #+#                */
+/*   Updated: 2019/02/15 15:54:13 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
 
 void	*ft_memset(void *b, int c, size_t len)
 {

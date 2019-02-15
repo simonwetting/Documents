@@ -6,12 +6,11 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/24 14:47:12 by swetting       #+#    #+#                */
-/*   Updated: 2019/02/11 12:12:26 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/15 15:56:12 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <string.h>
 
 void	ft_lstadd_end(t_list *link, t_list *new)
 {

@@ -6,12 +6,10 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/21 15:16:43 by swetting       #+#    #+#                */
-/*   Updated: 2019/02/11 13:48:05 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/15 15:56:05 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
 #include "libft.h"
 
 static char	isnegative(int n)
@@ -31,7 +29,7 @@ char		*ft_itoa(int n)
 	len = ft_intlen(n);
 	negative = isnegative(n);
 	if (n == -2147483648)
-		return ("-2147483648");
+		return (ft_strdup("-2147483648"));
 	if (negative)
 		n *= -1;
 	s = (char *)malloc(sizeof(char) * (len + 1));

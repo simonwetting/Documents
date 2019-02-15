@@ -6,7 +6,7 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 16:33:54 by swetting       #+#    #+#                */
-/*   Updated: 2019/01/31 11:01:30 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/14 16:43:01 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ char	*ft_strrchr(const char *s, int c)
 	i = 0;
 	while (i <= len)
 	{
-		if (s[len - i++] == c)
-			pos = len - i + 1;
+		if (s[len - i] == c)
+			return ((char *)s + len - i);
+		i++;
 	}
-	return (pos < 0 ? NULL : (char *)s + pos);
+	return (0);
 }

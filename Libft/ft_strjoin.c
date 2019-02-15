@@ -6,13 +6,11 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/19 12:21:28 by swetting       #+#    #+#                */
-/*   Updated: 2019/02/08 12:53:42 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/15 15:57:23 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
-#include <string.h>
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

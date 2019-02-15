@@ -6,11 +6,11 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/19 11:49:53 by swetting       #+#    #+#                */
-/*   Updated: 2019/01/19 15:06:45 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/15 15:52:34 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
 void	ft_putchar(char c)
 {

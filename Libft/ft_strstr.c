@@ -6,12 +6,11 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 16:43:09 by swetting       #+#    #+#                */
-/*   Updated: 2019/01/31 11:01:30 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/15 15:58:06 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <string.h>
 
 char	*ft_strstr(const char *haystack, const char *needle)
 {

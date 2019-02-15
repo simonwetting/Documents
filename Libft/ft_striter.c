@@ -6,11 +6,11 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/18 14:49:11 by swetting       #+#    #+#                */
-/*   Updated: 2019/02/08 12:54:03 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/15 15:54:14 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
 
 void	ft_striter(char *s, void (*f)(char *))
 {

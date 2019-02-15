@@ -6,13 +6,14 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/19 13:50:33 by swetting       #+#    #+#                */
-/*   Updated: 2019/01/19 13:58:02 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/15 16:00:24 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 char	ft_iswhitespace(char c)
 {
-	if (c == ' ' || c == '\n' || c == '\t')
+	if (c == ' ' || c == '\n' || c == '\t' || c == '\v' || c == '\r' ||
+			c == '\f')
 		return (1);
 	return (0);
 }
