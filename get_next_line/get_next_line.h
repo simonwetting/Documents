@@ -15,12 +15,13 @@
 # define GET_NEXT_LINE_H
 # define BUF_SIZE 32
 
-typedef struct  file_buffer
+typedef struct  		file_buffer
 {
-	int			fd;
-	int			index;
-	char		*buf;
-}				fb_t;
+	int					fd;
+	int					index;
+	char				*buf;
+	struct file_buffer	*next;
+}						fb_t;
 
-int		get_next_line(const int fd, char **line);
+int						get_next_line(const int fd, char **line);
 #endif
