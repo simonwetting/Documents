@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   get_next_line.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: simonwetting <simonwetting@student.coda      +#+                     */
+/*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/15 18:03:30 by swetting       #+#    #+#                */
-/*   Updated: 2019/02/17 19:19:04 by simonwettin   ########   odam.nl         */
+/*   Updated: 2019/02/18 17:27:06 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,30 @@
 #include <unistd.h>
 #include <stdio.h>
 
-char	*read_to_buf(int fd)
+char	*read_to_buf(int fd, char *remainder)
 {
 	char	*result;
+	int		bytes_read;
 	char	*buf;
+	void	*free_this;
 
 
-	buf = (char *)malloc(sizeof(char) * BUF_SIZE);
-	ft_bzero(buf, BUF_SIZE);
-	read(fd, buf, BUF_SIZE);
-	printf("buf>>%s\n", buf);
-	result = ft_strdup(buf);
-	if (ft_strchr(buf, '\n') == NULL)
+	result = strdup(remainder);
+	bytes_read = 1;
+	buf = NULL;
+	while (ft_strchr(result, '\n') == NULL && bytes_read)
 	{
-		ft_bzero(buf, BUF_SIZE);
-		read(fd, buf, BUF_SIZE);
+		if (buf == NULL)
+		{
+			buf = (char *)malloc(sizeof(char) * BUF_SIZE + 1);
+			ft_bzero(buf, BUF_SIZE);
+		}
+		bytes_read = read(fd, buf, BUF_SIZE);
+		free_this = result;
 		result = ft_strjoin(result, buf);
+		free(free_this);
 	}
+	free (buf);
 	return (result);
 }
 
@@ -47,8 +54,7 @@ fb_t	*new_fb(const int fd)
 
 	fb = (fb_t *)malloc(sizeof(fb_t));
 	fb->fd = fd;
-	fb->buf = read_to_buf(fd);
-	fb->index = 0;
+	fb->buf = read_to_buf(fd, "");
 	fb->next = NULL;
 	return (fb);
 }
@@ -59,11 +65,25 @@ char	*next_line_to_char(fb_t *buffer)
 	char	*buf;
 	char	*next_newline;
 
-	buf = buffer->buf + buffer->index;
-	next_newline = ft_strchr(buf, '\n');
+	buf = buffer->buf;
+	next_newline = strchr(buf, '\n');
+	if (next_newline == NULL)
+	{
+		buf = read_to_buf(buffer->fd, buf);
+		next_newline = strchr(buf, '\n');
+	}
+	else
+		printf("newline:%c", *next_newline);
 	line = ft_strsub(buf, 0, next_newline - buf);
-	printf("line>%s\n%i\n", next_newline, next_newline - buf);
-	return (line);
+	printf("len>%zu\n", ft_strlen(next_newline));
+	if (ft_strlen(next_newline) > 1)
+	{
+		buffer->buf = ft_strdup(next_newline + 1);
+		free(buf);
+		return (line);
+	}
+	else
+		return (NULL);	
 }
 
 int		get_next_line(const int fd, char **line)
@@ -84,5 +104,5 @@ int		get_next_line(const int fd, char **line)
 		add_fb(&fb, cur_fb);
 	}
 	*line = next_line_to_char(cur_fb);
-	return (1);
+	return (*line? 1 : 0);
 }

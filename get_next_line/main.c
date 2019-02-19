@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: simonwetting <simonwetting@student.coda      +#+                     */
+/*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/17 14:52:14 by simonwettin    #+#    #+#                */
-/*   Updated: 2019/02/17 16:56:04 by simonwettin   ########   odam.nl         */
+/*   Updated: 2019/02/18 16:53:40 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,46 @@
 #include <stdio.h>
 #include <fcntl.h>
 
+int		print_file(int fd)
+{
+	int 	error;
+	char	*line;
+	error = get_next_line(fd, &line);
+	while (error > 0)
+	{
+		if (error == 1)
+			printf("Succesfully read a line:\n%s\n\n", line);
+		if (error == 0)
+		{
+			printf("Reached end of file.\n");
+			return (0);
+		}
+		if (error == -1)
+		{
+			printf("Couldn't read next line\n");
+			return (-1);
+		}
+		error = get_next_line(fd, &line);
+	}
+	return (0);
+}
+
 int     main(int argc, char **argv)
 {
 	int     fd;
-	int    error;
-	char    *line;
+	int		i;
 
-	if (argc == 2)
+	if (argc >= 2)
 	{
-		fd = open(argv[1], O_RDONLY);
-		error = get_next_line(fd, &line);
-		if (error == 1)
-			printf("Succesfully read a line from %s:\n%s\n", argv[1], line);
-		if (error == 0)
-			printf("Encountered end of file\n");
-		if (error == -1)
-			printf("Couldn't read file\n");
-		else
-			printf("Test\n");
+		i = 1;
+		while (i < argc)
+		{
+			fd = open(argv[1], O_RDONLY);
+			print_file(fd);
+			close(fd);
+			i++;
+		}
 	}
 	else
-		printf("Invalid amount of arguments\n");
+		printf("You should specify at least 1 file\n");
 }
