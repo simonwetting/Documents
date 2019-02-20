@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   ft_memchr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/02/17 14:50:23 by simonwettin    #+#    #+#                */
-/*   Updated: 2019/02/20 17:25:28 by swetting      ########   odam.nl         */
+/*   Created: 2019/01/14 11:37:40 by swetting       #+#    #+#                */
+/*   Updated: 2019/02/15 15:54:12 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# include "libft/libft.h"
-# define GET_NEXT_LINE_H
-# define BUF_SIZE 32
+#include "libft.h"
 
-typedef struct  		file_buffer
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int					fd;
-	char				*buf;
-	struct file_buffer	*next;
-}						fb_t;
+	void	*p;
 
-int						get_next_line(const int fd, char **line);
-#endif
+	p = (unsigned char *)s + n;
+	while (s != p)
+	{
+		if (*((unsigned char *)s) == (unsigned char)c)
+			return ((unsigned char *)s);
+		s++;
+	}
+	return (0);
+}

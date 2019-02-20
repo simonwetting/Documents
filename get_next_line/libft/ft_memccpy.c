@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   ft_memccpy.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/02/17 14:50:23 by simonwettin    #+#    #+#                */
-/*   Updated: 2019/02/20 17:25:28 by swetting      ########   odam.nl         */
+/*   Created: 2019/02/07 12:57:55 by swetting       #+#    #+#                */
+/*   Updated: 2019/02/15 15:56:38 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# include "libft/libft.h"
-# define GET_NEXT_LINE_H
-# define BUF_SIZE 32
+#include "libft.h"
 
-typedef struct  		file_buffer
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	int					fd;
-	char				*buf;
-	struct file_buffer	*next;
-}						fb_t;
+	size_t	i;
 
-int						get_next_line(const int fd, char **line);
-#endif
+	i = 0;
+	while (i < n)
+	{
+		((unsigned char*)dst)[i] = ((unsigned char *)src)[i];
+		if (((unsigned char *)src)[i] == (unsigned char)c)
+			return (dst + i + 1);
+		i++;
+	}
+	return (NULL);
+}

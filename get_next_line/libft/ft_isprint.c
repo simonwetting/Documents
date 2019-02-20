@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   ft_isprint.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/02/17 14:50:23 by simonwettin    #+#    #+#                */
-/*   Updated: 2019/02/20 17:25:28 by swetting      ########   odam.nl         */
+/*   Created: 2019/01/17 17:57:44 by swetting       #+#    #+#                */
+/*   Updated: 2019/01/31 14:05:26 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# include "libft/libft.h"
-# define GET_NEXT_LINE_H
-# define BUF_SIZE 32
-
-typedef struct  		file_buffer
+int		ft_isprint(int c)
 {
-	int					fd;
-	char				*buf;
-	struct file_buffer	*next;
-}						fb_t;
-
-int						get_next_line(const int fd, char **line);
-#endif
+	if (c >= 32 && c <= 126)
+		return (1);
+	return (0);
+}

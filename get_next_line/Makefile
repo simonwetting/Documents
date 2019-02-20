@@ -1,7 +1,11 @@
+COMMAND = ./a.out file3 | cat -e
+
 run: re
 	clear
-	@./a.out file3
+	@echo "\033[0;31m$(COMMAND)"
+	@echo "\033[0;37m"
+	@$(COMMAND)
 
 re:
-	gcc main.c get_next_line.c libft/*.c -Wall -Wextra -Werror
+	gcc main.c get_next_line.c -Llibft/ -lft -Wall -Wextra -Werror -g
 	clear

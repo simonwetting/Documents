@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   ft_repp.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/02/17 14:50:23 by simonwettin    #+#    #+#                */
-/*   Updated: 2019/02/20 17:25:28 by swetting      ########   odam.nl         */
+/*   Created: 2019/02/20 18:32:12 by swetting       #+#    #+#                */
+/*   Updated: 2019/02/20 18:34:41 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# include "libft/libft.h"
-# define GET_NEXT_LINE_H
-# define BUF_SIZE 32
+#include "libft.h"
 
-typedef struct  		file_buffer
+void	repp(void **old, void *new)
 {
-	int					fd;
-	char				*buf;
-	struct file_buffer	*next;
-}						fb_t;
+	void *free_this;
 
-int						get_next_line(const int fd, char **line);
-#endif
+	free_this = *old;
+	*old = new;
+	free(free_this);
+}

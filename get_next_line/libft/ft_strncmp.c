@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   ft_strncmp.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/02/17 14:50:23 by simonwettin    #+#    #+#                */
-/*   Updated: 2019/02/20 17:25:28 by swetting      ########   odam.nl         */
+/*   Created: 2019/01/16 18:06:49 by swetting       #+#    #+#                */
+/*   Updated: 2019/02/15 15:54:15 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# include "libft/libft.h"
-# define GET_NEXT_LINE_H
-# define BUF_SIZE 32
+#include "libft.h"
 
-typedef struct  		file_buffer
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int					fd;
-	char				*buf;
-	struct file_buffer	*next;
-}						fb_t;
-
-int						get_next_line(const int fd, char **line);
-#endif
+	if (!n)
+		return (0);
+	while (*s2 && *s1 && n > 1)
+	{
+		if (*s2 != *s1)
+			return ((unsigned char)*s1 - (unsigned char)*s2);
+		s1++;
+		s2++;
+		n--;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
+}

@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   ft_lstcount.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/02/17 14:50:23 by simonwettin    #+#    #+#                */
-/*   Updated: 2019/02/20 17:25:28 by swetting      ########   odam.nl         */
+/*   Created: 2019/01/23 13:41:10 by swetting       #+#    #+#                */
+/*   Updated: 2019/02/11 12:18:12 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# include "libft/libft.h"
-# define GET_NEXT_LINE_H
-# define BUF_SIZE 32
+#include "libft.h"
 
-typedef struct  		file_buffer
+unsigned int	ft_lstcount(t_list *lst)
 {
-	int					fd;
-	char				*buf;
-	struct file_buffer	*next;
-}						fb_t;
+	t_list			*temp;
+	unsigned int	n_elem;
 
-int						get_next_line(const int fd, char **line);
-#endif
+	if (lst == NULL)
+		return (0);
+	temp = lst;
+	n_elem = 1;
+	while (temp->next)
+	{
+		temp = temp->next;
+		n_elem++;
+	}
+	return (n_elem);
+}
