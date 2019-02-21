@@ -7,5 +7,5 @@ run: re
 	@$(COMMAND)
 
 re:
-	gcc main.c get_next_line.c -Llibft/ -lft -Wall -Wextra -Werror -g
+	gcc -g main.c get_next_line.c -Llibft/ -lft -Wall -Wextra -Werror
 	clear

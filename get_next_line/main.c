@@ -6,7 +6,7 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/17 14:52:14 by simonwettin    #+#    #+#                */
-/*   Updated: 2019/02/20 17:40:47 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/21 13:56:01 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int		print_file(int fd)
 	while (error > 0)
 	{
 		if (error == 1)
-			printf("Succesfully read a line:\n%s\n\n", line);
+			printf("%s\n", line);
+			//printf("Succesfully read a line:\n%s\n\n", line);
 		if (error == 0)
 		{
 			printf("Reached end of file.\n");
@@ -48,7 +49,8 @@ int     main(int argc, char **argv)
 		i = 1;
 		while (i < argc)
 		{
-			fd = open(argv[1], O_RDONLY);
+			printf("*****%s*****\n", argv[i]);
+			fd = open(argv[i], O_RDONLY);
 			print_file(fd);
 			close(fd);
 			i++;
