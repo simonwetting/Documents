@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_next_line.h                                    :+:    :+:            */
+/*   resizable_string.h                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/02/17 14:50:23 by simonwettin    #+#    #+#                */
-/*   Updated: 2019/02/22 17:14:54 by swetting      ########   odam.nl         */
+/*   Created: 2019/02/22 15:43:36 by swetting       #+#    #+#                */
+/*   Updated: 2019/02/22 16:28:53 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# include "libft/libft.h"
-# define GET_NEXT_LINE_H
-# define BUF_SIZE 600
+#ifndef RESIZABLE_STRING
+# define RESIZABLE_STRING
+#include "libft.h"
 
-typedef struct  		file_buffer
+typedef struct	resizable_string
 {
-	int					fd;
-	char				*buf;
-	struct file_buffer	*next;
-}						fb_t;
+	char		*str;
+	size_t		size;
+}				rstr_t;
 
-int						get_next_line(const int fd, char **line);
+rstr_t	*new_rstr(const char *str);
+rstr_t	*new_rstrn(const char *str, size_t len);
+void	rep_rstr(rstr_t **old, rstr_t *new);
+rstr_t	*append_rstr(rstr_t **rstr, const char *str);
+
 #endif

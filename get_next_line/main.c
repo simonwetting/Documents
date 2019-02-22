@@ -6,7 +6,7 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/17 14:52:14 by simonwettin    #+#    #+#                */
-/*   Updated: 2019/02/21 13:56:01 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/22 15:15:28 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		print_file(int fd)
 {
 	int 	error;
 	char	*line;
+
 	error = get_next_line(fd, &line);
 	while (error > 0)
 	{

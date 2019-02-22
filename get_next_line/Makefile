@@ -1,4 +1,4 @@
-COMMAND = ./a.out file3 | cat -e
+COMMAND = ./a.out file1 file2 file3 | cat -e
 
 run: re
 	clear
@@ -7,5 +7,6 @@ run: re
 	@$(COMMAND)
 
 re:
+	cd libft; make
 	gcc -g main.c get_next_line.c -Llibft/ -lft -Wall -Wextra -Werror
 	clear

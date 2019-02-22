@@ -6,7 +6,7 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/15 18:03:30 by swetting       #+#    #+#                */
-/*   Updated: 2019/02/21 13:55:05 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/22 17:25:12 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*read_to_buf(fb_t *fb)
 	char	*data_read;
 	int		bytes_read;
 	int		total_bytes_read;
-	void	*free_this;
+	//void	*free_this;
 
 	data_read = (char *)malloc(sizeof(char) * (BUF_SIZE + 1));
 	ft_bzero(data_read, BUF_SIZE);
@@ -32,12 +32,9 @@ char	*read_to_buf(fb_t *fb)
 			break;
 		if (bytes_read < BUF_SIZE)
 			data_read[bytes_read] = '\0';
-		//printf("data_read>%s\n", data_read);
 		total_bytes_read += bytes_read;
-		free_this = fb->buf;
 		fb->buf = ft_strjoin(fb->buf, data_read);
 	}
-	//printf("buf>%s\n", fb->buf);
 	return (fb->buf);
 }
 
@@ -54,14 +51,12 @@ char	*read_line_from_buf(fb_t *fb)
 	{
 		if (!*fb->buf)
 			return (NULL);
-		//printf("\nbuf>%s\n\n", fb->buf);
 		line = fb->buf;
 		fb->buf = ft_strdup("");
 		return (line);
 	}
 	line = ft_strsub(fb->buf, 0, line_feed - fb->buf);
-	ft_strncpy(fb->buf, line_feed + 1, BUF_SIZE);
-	//printf("\nline>%s\nbuf>%s\n", line, fb->buf);
+	ft_strcpy(fb->buf, line_feed + 1);
 	return (line);
 }
 
@@ -88,7 +83,6 @@ int		get_next_line(const int fd, char **line)
 	static fb_t	*fb;
 	fb_t		*cur_fb;
 
-	//printf("\nfd>%i\n", fd);
 	if (fd < 0)
 		return (fd);
 	if (fb == NULL)
