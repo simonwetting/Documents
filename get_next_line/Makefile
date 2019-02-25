@@ -1,4 +1,4 @@
-COMMAND = ./a.out file1 file2 file3 | cat -e
+COMMAND = ./a.out file1 file2 file3 testt2.txt | cat -e
 
 run: re
 	clear
