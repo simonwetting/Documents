@@ -6,14 +6,14 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/17 14:50:23 by simonwettin    #+#    #+#                */
-/*   Updated: 2019/02/25 11:57:00 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/27 16:26:24 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # include "libft/libft.h"
 # define GET_NEXT_LINE_H
-# define BUF_SIZE 50000
+# define BUFF_SIZE 32
 
 typedef struct  		file_buffer
 {

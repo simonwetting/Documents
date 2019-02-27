@@ -6,7 +6,7 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/15 18:03:30 by swetting       #+#    #+#                */
-/*   Updated: 2019/02/22 17:48:52 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/27 16:30:37 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,23 @@ char	*read_to_buf(fb_t *fb)
 {
 	char	*data_read;
 	int		bytes_read;
-	int		total_bytes_read;
-	//void	*free_this;
+	// void	*free_this;
 
-	data_read = (char *)malloc(sizeof(char) * (BUF_SIZE + 1));
-	ft_bzero(data_read, BUF_SIZE);
-	total_bytes_read = 0;
-	//printf("buffer>%s\n\n", fb->buf + fb->index);
+	data_read = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
+	ft_bzero(data_read, BUFF_SIZE);
 	while (!ft_strchr(fb->buf + fb->index, '\n'))
 	{
-		bytes_read = read(fb->fd, data_read, BUF_SIZE);
+		bytes_read = read(fb->fd, data_read, BUFF_SIZE);
 		if (!bytes_read)
 			break;
-		if (bytes_read < BUF_SIZE)
+		if (bytes_read < BUFF_SIZE)
 			data_read[bytes_read] = '\0';
-		total_bytes_read += bytes_read;
-		//printf("joining %s\nAND\n%s\n\n", fb->buf + fb->index, data_read);
+		// free_this = fb->buf;
 		fb->buf = ft_strjoin(fb->buf + fb->index, data_read);
+		// free(free_this);
 		fb->index = 0;
 	}
-	//printf("new buffer>%s\n\n", fb->buf + fb->index);
+	free(data_read);
 	return (fb->buf);
 }
 
@@ -47,10 +44,10 @@ char	*read_line_from_buf(fb_t *fb)
 	char 	*line_feed;
 	char	*line;
 
-	line_feed = strchr(fb->buf + fb->index, '\n');
+	line_feed = ft_strchr(fb->buf + fb->index, '\n');
 	if (!line_feed)
 		fb->buf = read_to_buf(fb);
-	line_feed = strchr(fb->buf + fb->index, '\n');
+	line_feed = ft_strchr(fb->buf + fb->index, '\n');
 	if (!line_feed)
 	{
 		if (!*(fb->buf + fb->index))
@@ -60,7 +57,6 @@ char	*read_line_from_buf(fb_t *fb)
 		return (line);
 	}
 	line = ft_strsub(fb->buf + fb->index, 0, line_feed - fb->buf - fb->index);
-	//ft_strcpy(fb->buf, line_feed + 1);
 	fb->index = line_feed - fb->buf + 1;
 	return (line);
 }
@@ -89,8 +85,8 @@ int		get_next_line(const int fd, char **line)
 	static fb_t	*fb;
 	fb_t		*cur_fb;
 
-	if (fd < 0)
-		return (fd);
+	if (fd == -1)
+		return (-1);
 	if (fb == NULL)
 		fb = new_fb(fd);
 	cur_fb = fb;

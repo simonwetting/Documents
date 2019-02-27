@@ -1,4 +1,5 @@
-COMMAND = ./a.out file1 file2 file3 testt2.txt | cat -e
+FILE = file2
+COMMAND = ./a.out $(FILE) > output.txt; diff $(FILE) output.txt
 
 run: re
 	clear
