@@ -25,7 +25,8 @@ char	*read_to_buf(fb_t *fb)
 	data_read = (char *)malloc(sizeof(char) * (BUF_SIZE + 1));
 	ft_bzero(data_read, BUF_SIZE);
 	total_bytes_read = 0;
-	while (!ft_strchr(fb->buf, '\n'))
+	//printf("buffer>%s\n\n", fb->buf + fb->index);
+	while (!ft_strchr(fb->buf + fb->index, '\n'))
 	{
 		bytes_read = read(fb->fd, data_read, BUF_SIZE);
 		if (!bytes_read)
@@ -33,8 +34,11 @@ char	*read_to_buf(fb_t *fb)
 		if (bytes_read < BUF_SIZE)
 			data_read[bytes_read] = '\0';
 		total_bytes_read += bytes_read;
-		fb->buf = ft_strjoin(fb->buf, data_read);
+		//printf("joining %s\nAND\n%s\n\n", fb->buf + fb->index, data_read);
+		fb->buf = ft_strjoin(fb->buf + fb->index, data_read);
+		fb->index = 0;
 	}
+	//printf("new buffer>%s\n\n", fb->buf + fb->index);
 	return (fb->buf);
 }
 
@@ -43,20 +47,21 @@ char	*read_line_from_buf(fb_t *fb)
 	char 	*line_feed;
 	char	*line;
 
-	line_feed = strchr(fb->buf, '\n');
+	line_feed = strchr(fb->buf + fb->index, '\n');
 	if (!line_feed)
 		fb->buf = read_to_buf(fb);
-	line_feed = strchr(fb->buf, '\n');
+	line_feed = strchr(fb->buf + fb->index, '\n');
 	if (!line_feed)
 	{
-		if (!*fb->buf)
+		if (!*(fb->buf + fb->index))
 			return (NULL);
-		line = fb->buf;
+		line = fb->buf + fb->index;
 		fb->buf = ft_strdup("");
 		return (line);
 	}
-	line = ft_strsub(fb->buf, 0, line_feed - fb->buf);
-	ft_strcpy(fb->buf, line_feed + 1);
+	line = ft_strsub(fb->buf + fb->index, 0, line_feed - fb->buf - fb->index);
+	//ft_strcpy(fb->buf, line_feed + 1);
+	fb->index = line_feed - fb->buf + 1;
 	return (line);
 }
 
@@ -72,6 +77,7 @@ fb_t	*new_fb(const int fd)
 
 	fb = (fb_t *)malloc(sizeof(fb_t));
 	fb->fd = fd;
+	fb->index = 0;
 	fb->buf = ft_strdup("");
 	fb->buf = read_to_buf(fb);
 	fb->next = NULL;

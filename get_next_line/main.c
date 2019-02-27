@@ -18,10 +18,13 @@ int		print_file(int fd)
 {
 	int 	error;
 	char	*line;
+	//int		i = 0;
 
-	error = get_next_line(fd, &line);
+	error = 1;
 	while (error > 0)
+	//while (i++ < 100)
 	{
+		error = get_next_line(fd, &line);
 		if (error == 1)
 			printf("%s\n", line);
 			//printf("Succesfully read a line:\n%s\n\n", line);
@@ -35,7 +38,6 @@ int		print_file(int fd)
 			printf("Couldn't read next line\n");
 			return (-1);
 		}
-		error = get_next_line(fd, &line);
 	}
 	return (0);
 }

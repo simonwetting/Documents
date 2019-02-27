@@ -19,6 +19,7 @@ typedef struct  		file_buffer
 {
 	int					fd;
 	char				*buf;
+	int					index;
 	struct file_buffer	*next;
 }						fb_t;
 
