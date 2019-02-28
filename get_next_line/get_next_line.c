@@ -6,7 +6,7 @@
 /*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/15 18:03:30 by swetting       #+#    #+#                */
-/*   Updated: 2019/02/27 16:30:37 by swetting      ########   odam.nl         */
+/*   Updated: 2019/02/28 12:55:00 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ char	*read_line_from_buf(fb_t *fb)
 	char 	*line_feed;
 	char	*line;
 
+	if (!fb->buf)
+		return (NULL);
 	line_feed = ft_strchr(fb->buf + fb->index, '\n');
 	if (!line_feed)
 		fb->buf = read_to_buf(fb);
@@ -51,7 +53,10 @@ char	*read_line_from_buf(fb_t *fb)
 	if (!line_feed)
 	{
 		if (!*(fb->buf + fb->index))
-			return (NULL);
+		{
+			fb->buf = NULL;
+			return ("");
+		}
 		line = fb->buf + fb->index;
 		fb->buf = ft_strdup("");
 		return (line);
@@ -98,5 +103,7 @@ int		get_next_line(const int fd, char **line)
 		add_fb(&fb, cur_fb);
 	}
 	*line = read_line_from_buf(cur_fb);
+	if (!*line)
+		fb = NULL;
 	return (*line ? 1 : 0);
 }
