@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   get_next_line.h                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: swetting <swetting@student.codam.nl>         +#+                     */
+/*   By: simonwetting <simonwetting@student.coda      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/17 14:50:23 by simonwettin    #+#    #+#                */
-/*   Updated: 2019/02/28 10:19:55 by swetting      ########   odam.nl         */
+/*   Updated: 2019/03/01 09:41:43 by simonwettin   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

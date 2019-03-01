@@ -13,5 +13,5 @@ run: re
 
 re:
 	cd libft; make
-	gcc -g main.c get_next_line.c -Llibft/ -lft -Wall -Wextra -Werror
+	gcc -g main.c get_next_line.c -Llibft -lft -Wall -Wextra -Werror
 	clear

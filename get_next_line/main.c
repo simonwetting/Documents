@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: swetting <swetting@student.codam.nl>         +#+                     */
+/*   By: simonwetting <simonwetting@student.coda      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/17 14:52:14 by simonwettin    #+#    #+#                */
-/*   Updated: 2019/02/28 12:07:13 by swetting      ########   odam.nl         */
+/*   Updated: 2019/03/01 09:35:03 by simonwettin   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int     main(int argc, char **argv)
 		while (i < argc)
 		{
 			fd = open(argv[i], O_RDONLY);
-			printf("*****%s****%i\n", argv[i], fd);
+			//printf("*****%s****%i\n", argv[i], fd);
 			print_file(fd);
 			close(fd);
 			i++;

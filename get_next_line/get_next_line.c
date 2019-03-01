@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   get_next_line.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: swetting <swetting@student.codam.nl>         +#+                     */
+/*   By: simonwetting <simonwetting@student.coda      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/15 18:03:30 by swetting       #+#    #+#                */
-/*   Updated: 2019/02/28 12:55:00 by swetting      ########   odam.nl         */
+/*   Updated: 2019/03/01 09:40:00 by simonwettin   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ char	*read_to_buf(fb_t *fb)
 {
 	char	*data_read;
 	int		bytes_read;
-	// void	*free_this;
+	void	*free_this;
 
 	data_read = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
-	ft_bzero(data_read, BUFF_SIZE);
+	ft_bzero(data_read, BUFF_SIZE + 1);
 	while (!ft_strchr(fb->buf + fb->index, '\n'))
 	{
 		bytes_read = read(fb->fd, data_read, BUFF_SIZE);
@@ -30,11 +30,13 @@ char	*read_to_buf(fb_t *fb)
 			break;
 		if (bytes_read < BUFF_SIZE)
 			data_read[bytes_read] = '\0';
-		// free_this = fb->buf;
+		free_this = fb->buf;
 		fb->buf = ft_strjoin(fb->buf + fb->index, data_read);
-		// free(free_this);
+		free(free_this);
 		fb->index = 0;
 	}
+	// printf("buf>%s\n", fb->buf);
+	// printf("$");
 	free(data_read);
 	return (fb->buf);
 }
@@ -58,7 +60,7 @@ char	*read_line_from_buf(fb_t *fb)
 			return ("");
 		}
 		line = fb->buf + fb->index;
-		fb->buf = ft_strdup("");
+		fb->buf = NULL;
 		return (line);
 	}
 	line = ft_strsub(fb->buf + fb->index, 0, line_feed - fb->buf - fb->index);
