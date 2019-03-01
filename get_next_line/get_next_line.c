@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   get_next_line.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: simonwetting <simonwetting@student.coda      +#+                     */
+/*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/15 18:03:30 by swetting       #+#    #+#                */
-/*   Updated: 2019/03/01 09:40:00 by simonwettin   ########   odam.nl         */
+/*   Updated: 2019/03/01 14:15:31 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,32 @@ char	*read_line_from_buf(fb_t *fb)
 	return (line);
 }
 
-void	add_fb(fb_t **begin_list, fb_t *new_buffer)
+// void	add_fb(fb_t **begin_list, fb_t *new_buffer)
+// {
+// 	new_buffer->next = *begin_list;
+// 	*begin_list = new_buffer;
+// }
+
+void	dell_fb(fb_t **fb, fb_t *cur_fb)
 {
-	new_buffer->next = *begin_list;
-	*begin_list = new_buffer;
+	fb_t	*prev_fb;
+	
+	if (*fb == cur_fb)
+	{
+		if ((*fb)->next)
+			*fb = (*fb)->next;
+		else
+			*fb = NULL;
+	}
+	else
+	{
+		prev_fb = *fb;
+		while (prev_fb->next->fd != cur_fb->fd)
+			prev_fb = prev_fb->next;
+		prev_fb->next = cur_fb->next;
+	}
+	free(cur_fb->buf);
+	free(cur_fb);
 }
 
 fb_t	*new_fb(const int fd)
@@ -83,6 +105,8 @@ fb_t	*new_fb(const int fd)
 	fb->index = 0;
 	fb->buf = ft_strdup("");
 	fb->buf = read_to_buf(fb);
+	if (*(fb->buf) == '\0')
+		fb->buf = NULL;
 	fb->next = NULL;
 	return (fb);
 }
@@ -102,10 +126,12 @@ int		get_next_line(const int fd, char **line)
 	if (cur_fb == NULL)
 	{
 		cur_fb = new_fb(fd);
-		add_fb(&fb, cur_fb);
+		//add_fb(&fb, cur_fb);
+		cur_fb->next = fb;
+		fb = cur_fb;
 	}
 	*line = read_line_from_buf(cur_fb);
 	if (!*line)
-		fb = NULL;
+		dell_fb(&fb, cur_fb);
 	return (*line ? 1 : 0);
 }
