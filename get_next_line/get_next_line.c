@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   get_next_line.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: swetting <swetting@student.codam.nl>         +#+                     */
+/*   By: simonwetting <simonwetting@student.coda      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/15 18:03:30 by swetting       #+#    #+#                */
-/*   Updated: 2019/03/01 14:15:31 by swetting      ########   odam.nl         */
+/*   Updated: 2019/03/02 14:05:47 by simonwettin   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,15 @@ int		read_to_buf(fb_t *fb)
 int		read_line_from_buf(fb_t *fb, char **line)
 {
 	char 	*line_feed;
+	int		state;
 
 	if (!fb->buf)
 		return (0);
 	line_feed = ft_strchr(fb->buf + fb->index, '\n');
 	if (!line_feed)
-		read_to_buf(fb);
+		state = read_to_buf(fb);
+	if (state == -1)
+		return (-1);
 	line_feed = ft_strchr(fb->buf + fb->index, '\n');
 	if (!line_feed)
 	{
@@ -63,9 +66,7 @@ int		read_line_from_buf(fb_t *fb, char **line)
 		fb->buf = NULL;
 		return (1);
 	}
-	//printf("OLD_BUF>%s\n", fb->buf);
 	*line = ft_strsub(fb->buf + fb->index, 0, line_feed - fb->buf - fb->index);
-	// printf("\nBUF>%s\nLINE>%s\n", fb->buf, *line);
 	fb->index = line_feed - fb->buf + 1;
 	return (1);
 }
@@ -100,11 +101,6 @@ fb_t	*new_fb(const int fd)
 	fb->fd = fd;
 	fb->index = 0;
 	fb->buf = ft_strdup("");
-	read_to_buf(fb);
-	if (fb->buf == NULL)
-		return (NULL);
-	if (*(fb->buf) == '\0')
-		fb->buf = NULL;
 	fb->next = NULL;
 	return (fb);
 }
