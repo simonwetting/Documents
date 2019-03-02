@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-char	*read_to_buf(fb_t *fb)
+int		read_to_buf(fb_t *fb)
 {
 	char	*data_read;
 	int		bytes_read;
@@ -26,6 +26,8 @@ char	*read_to_buf(fb_t *fb)
 	while (!ft_strchr(fb->buf + fb->index, '\n'))
 	{
 		bytes_read = read(fb->fd, data_read, BUFF_SIZE);
+		if (bytes_read == -1)
+			return (-1);
 		if (!bytes_read)
 			break;
 		if (bytes_read < BUFF_SIZE)
@@ -35,44 +37,38 @@ char	*read_to_buf(fb_t *fb)
 		free(free_this);
 		fb->index = 0;
 	}
-	// printf("buf>%s\n", fb->buf);
-	// printf("$");
 	free(data_read);
-	return (fb->buf);
+	return (0);
 }
 
-char	*read_line_from_buf(fb_t *fb)
+int		read_line_from_buf(fb_t *fb, char **line)
 {
 	char 	*line_feed;
-	char	*line;
 
 	if (!fb->buf)
-		return (NULL);
+		return (0);
 	line_feed = ft_strchr(fb->buf + fb->index, '\n');
 	if (!line_feed)
-		fb->buf = read_to_buf(fb);
+		read_to_buf(fb);
 	line_feed = ft_strchr(fb->buf + fb->index, '\n');
 	if (!line_feed)
 	{
 		if (!*(fb->buf + fb->index))
 		{
 			fb->buf = NULL;
-			return ("");
+			*line = "";
+			return (0);
 		}
-		line = fb->buf + fb->index;
+		*line = ft_strdup(fb->buf + fb->index);
 		fb->buf = NULL;
-		return (line);
+		return (1);
 	}
-	line = ft_strsub(fb->buf + fb->index, 0, line_feed - fb->buf - fb->index);
+	//printf("OLD_BUF>%s\n", fb->buf);
+	*line = ft_strsub(fb->buf + fb->index, 0, line_feed - fb->buf - fb->index);
+	// printf("\nBUF>%s\nLINE>%s\n", fb->buf, *line);
 	fb->index = line_feed - fb->buf + 1;
-	return (line);
+	return (1);
 }
-
-// void	add_fb(fb_t **begin_list, fb_t *new_buffer)
-// {
-// 	new_buffer->next = *begin_list;
-// 	*begin_list = new_buffer;
-// }
 
 void	dell_fb(fb_t **fb, fb_t *cur_fb)
 {
@@ -104,7 +100,9 @@ fb_t	*new_fb(const int fd)
 	fb->fd = fd;
 	fb->index = 0;
 	fb->buf = ft_strdup("");
-	fb->buf = read_to_buf(fb);
+	read_to_buf(fb);
+	if (fb->buf == NULL)
+		return (NULL);
 	if (*(fb->buf) == '\0')
 		fb->buf = NULL;
 	fb->next = NULL;
@@ -115,6 +113,7 @@ int		get_next_line(const int fd, char **line)
 {
 	static fb_t	*fb;
 	fb_t		*cur_fb;
+	int			state;
 
 	if (fd == -1)
 		return (-1);
@@ -130,8 +129,8 @@ int		get_next_line(const int fd, char **line)
 		cur_fb->next = fb;
 		fb = cur_fb;
 	}
-	*line = read_line_from_buf(cur_fb);
-	if (!*line)
+	state = read_line_from_buf(cur_fb, line);
+	if (state != 1)
 		dell_fb(&fb, cur_fb);
-	return (*line ? 1 : 0);
+	return (state);
 }
