@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   get_next_line.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: simonwetting <simonwetting@student.coda      +#+                     */
+/*   By: swetting <swetting@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/15 18:03:30 by swetting       #+#    #+#                */
-/*   Updated: 2019/03/02 14:05:47 by simonwettin   ########   odam.nl         */
+/*   Updated: 2019/03/05 11:03:21 by swetting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ int		read_to_buf(fb_t *fb)
 int		read_line_from_buf(fb_t *fb, char **line)
 {
 	char 	*line_feed;
-	int		state;
 
 	if (!fb->buf)
 		return (0);
 	line_feed = ft_strchr(fb->buf + fb->index, '\n');
 	if (!line_feed)
-		state = read_to_buf(fb);
-	if (state == -1)
-		return (-1);
+	{
+		if (read_to_buf(fb) == -1)
+			return (-1);
+	}
 	line_feed = ft_strchr(fb->buf + fb->index, '\n');
 	if (!line_feed)
 	{
@@ -116,7 +116,7 @@ int		get_next_line(const int fd, char **line)
 	if (fb == NULL)
 		fb = new_fb(fd);
 	cur_fb = fb;
-	while (cur_fb->fd != fd)
+	while (cur_fb && cur_fb->fd != fd)
 		cur_fb = cur_fb->next;
 	if (cur_fb == NULL)
 	{
